@@ -1,5 +1,5 @@
 const express = require('express');
-const mysql = require('mysql2');  // <-- CAMBIO: era 'mysql', ahora 'mysql2' para coincidir con package.json
+const mysql = require('mysql2');
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
@@ -49,7 +49,7 @@ conexion.connect((err) => {
 
 app.post('/login', (req, res) => {
   const { usuario, clave } = req.body;
-  const sql = 'SELECT * FROM usuarios WHERE usuario = ? AND clave = ?';
+  const sql = 'SELECT * FROM usuarios WHERE usuario = ? AND password = ?';
   conexion.query(sql, [usuario, clave], (err, results) => {
     if (err) return res.status(500).json({ status: 'error', mensaje: 'Error en servidor' });
     if (results.length > 0) {
